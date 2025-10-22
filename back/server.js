@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
@@ -8,28 +7,33 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: ['https://laus96.github.io'],
-  methods: ['GET'],
-  credentials: true,
-}));
+const allowedOrigins = ['https://laus96.github.io'];
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'una-clave-secreta',
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 1 día
-    sameSite: 'none',            // necesario para CORS cross-site (GitHub Pages)
-    secure: true                 // obligatorio si usas HTTPS (Render lo usa)
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'none',
+    secure: true
   }
 }));
-
 
 const audios = {
   audio1: 'audiolibros1.mp3',
@@ -49,9 +53,7 @@ const videos = {
   juegos1: 'videojuegos1.mp4',
 };
 
-
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
 
 app.get('/api/get-audio', (req, res) => {
   const id = req.query.id;
@@ -65,7 +67,6 @@ app.get('/api/get-audio', (req, res) => {
   res.json({ url: `/media/${token}${path.extname(file)}` });
 });
 
-
 app.get('/api/get-video', (req, res) => {
   const id = req.query.id;
   const file = videos[id];
@@ -77,7 +78,6 @@ app.get('/api/get-video', (req, res) => {
 
   res.json({ url: `/media/${token}${path.extname(file)}` });
 });
-
 
 app.get('/media/:tokenWithExt', (req, res) => {
   const token = path.parse(req.params.tokenWithExt).name;
