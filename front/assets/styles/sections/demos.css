@@ -1,0 +1,196 @@
+.demos {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--demos-bgcolor);
+  color: var(--text-color-light);
+  padding: var(--gap-section) var(--padding-section);
+  font-family: var(--font-base);
+  text-align: center;
+  z-index: 0;
+}
+
+.demos::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(var(--demo-bg-overlay), var(--demo-bg-overlay)),
+              url('/assets/images/backgrounds/demo_bg.webp') center/cover no-repeat;
+  filter: var(--demo-bg-filter);
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.demos__header,
+.section__title,
+.section__subtitle,
+.demos__grid {
+  position: relative;
+  z-index: 1;
+}
+
+.demos__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap-md);
+  margin-bottom: var(--gap-lg);
+}
+
+
+.demos__grid {
+  display: grid;
+  gap: var(--gap-lg);
+  max-width: 1200px;
+  margin: 0 auto var(--gap-xl);
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.demos__grid.single-demo {
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+.demo-card {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--demo-card-bg);
+  box-shadow: var(--demo-card-shadow);
+  cursor: pointer;
+  aspect-ratio: 16/9;
+  width: 100%;
+  max-width: 600px;
+}
+
+.demo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.demo-card iframe,
+.demo-card video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-placeholder {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+}
+
+.video-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.video-placeholder::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(1px);
+  border-radius: var(--border-radius);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.video-placeholder:hover img {
+  transform: scale(1.05);
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--play-button-icon);
+  height: var(--play-button-icon);
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6) url('/assets/images/icons/play.png') center center no-repeat;
+  background-size: 80% auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease;
+  padding: 0;
+}
+
+.play-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: rgba(0,0,0,0.8);
+}
+
+.demos-more__content {
+  position: relative;
+  z-index: 1;
+  background: var(--demo-more-bg);
+  backdrop-filter: blur(6px);
+  border-radius: var(--border-radius);
+  padding: var(--gap-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  margin: 0 auto;
+}
+
+.demos-more__title {
+  font-family: var(--font-title);
+  font-size: var(--font-size-h4, 1.5rem);
+  font-weight: var(--weight-bold);
+  color: var(--text-color-light);
+  margin: 0;
+}
+
+.demos-more__text {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light);
+  max-width: var(--demo-more-max-width);
+  text-align: center;
+  margin: 0;
+  line-height: var(--line-height);
+}
+
+.demos-more__buttons {
+  display: flex;
+  gap: var(--gap-md);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--gap-sm);
+}
+
+.demos-more__buttons .button {
+  font-size: var(--btn-font-size-md);
+  padding: var(--padding-xs) var(--padding-xxs);
+  border-radius: var(--btn-radius-lg);
+  transition: all var(--transition-speed) ease;
+}
+
+.demos-more__buttons .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}

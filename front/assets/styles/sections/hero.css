@@ -1,0 +1,94 @@
+.hero {
+  position: relative;
+  margin-top: var(--navbar-height);
+  min-height: var(--hero-height-desktop);
+  height: var(--hero-height-desktop);
+  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
+  background-size: 135% auto;
+  background-position: top left;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__container {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  align-items: center;
+  gap: var(--items-gap);
+  width: 100%;
+  height: 100%;
+  padding: var(--items-padding) 0 0 var(--items-padding);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-sub {
+  position: relative;
+  margin-top: var(--navbar-height);
+  min-height: var(--hero-sub-height-desktop);
+  height: var(--hero-sub-height-desktop);
+  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
+  background-size: 135% auto;
+  background-position: top left;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero-sub__container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: var(--items-gap);
+  width: 100%;
+  height: 100%;
+  padding: var(--items-padding) 0 0 var(--items-padding);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--items-gap);
+}
+
+.hero__name {
+  font-weight: var(--weight-regular);
+  font-size: var(--h4-size);
+  letter-spacing: var(--highlight-spacing);
+}
+
+.hero__title {
+  font-weight: var(--weight-bold);
+  font-size: var(--main-title-size);
+}
+
+.hero__subtext {
+  font-family: var(--font-base);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-base-size);
+}
+
+.hero__buttons {
+  display: flex;
+  gap: var(--items-gap);
+}
