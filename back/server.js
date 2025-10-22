@@ -2,11 +2,18 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const { nanoid } = require('nanoid');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ---- CORS ----
+app.use(cors({
+  origin: 'https://laus96.github.io', // tu frontend
+  credentials: true
+}));
 
+// ---- Sesiones ----
 app.use(session({
   secret: 'una-clave-secreta', // cambia esto por algo seguro
   resave: false,
@@ -14,6 +21,7 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
 }));
 
+// ---- Archivos ----
 const audios = {
   audio1: 'audiolibros1.mp3',
   audio2: 'audiolibros2.mp3',
@@ -27,7 +35,7 @@ const videos = {
   dob1: 'doblaje1.mp4',
   dob2: 'doblaje2.mp4',
   dob3: 'doblaje3.mp4',
-  locu1: 'locuion1.mp4',
+  locu1:'locuion1.mp4',
   publi1: 'publicidad1.mp4',
   juegos1: 'videojuegos1.mp4',
 };
