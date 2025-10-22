@@ -94,7 +94,7 @@ const initNavbar = () => {
   const logo = document.getElementById("headerLogo");
   if (logo) {
     logo.addEventListener("click", () => {
-      window.location.href = "/victor-doblaje/";
+      window.location.href = "/victormoreira/";
     });
   }
 };
