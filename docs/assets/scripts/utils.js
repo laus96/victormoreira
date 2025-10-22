@@ -169,103 +169,105 @@ const initLegal = () => {
 
   initCopyEmail('#legal');
 };
+function initPortfolio() {
+  const API_BASE = "https://victormoreira.onrender.com"; 
+  
+  const tabs = document.querySelectorAll(".tab");
+  const cards = document.querySelectorAll(".demo-card");
+  const grid = document.querySelector('.demos-sub__grid');
+  const mediaEls = document.querySelectorAll('.demo-media');
+  const players = {};
 
-    function initPortfolio() {
-      const tabs = document.querySelectorAll(".tab");
-      const cards = document.querySelectorAll(".demo-card");
-      const grid = document.querySelector('.demos-sub__grid');
-      const mediaEls = document.querySelectorAll('.demo-media');
-      const players = {};
+  mediaEls.forEach(el => {
+    const id = el.dataset.mediaId;
+    const type = el.dataset.type;
+    const apiUrl = type === 'audio'
+      ? `${API_BASE}/api/get-audio?id=${id}`
+      : `${API_BASE}/api/get-video?id=${id}`;
 
-      mediaEls.forEach(el => {
-        const id = el.dataset.mediaId;
-        const type = el.dataset.type;
-        const apiUrl = type === 'audio' ? `/api/get-audio?id=${id}` : `/api/get-video?id=${id}`;
+    fetch(apiUrl, { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        el.src = `${API_BASE}${data.url}`;
 
-        fetch(apiUrl)
-          .then(res => res.json())
-          .then(data => {
-            el.src = data.url;
+        const features = type === 'audio'
+          ? ['playpause','progress','current','duration','volume']
+          : ['playpause','progress','current','duration','volume','fullscreen'];
 
-            const features = type === 'audio'
-              ? ['playpause','progress','current','duration','volume']
-              : ['playpause','progress','current','duration','volume','fullscreen'];
+        const player = new MediaElementPlayer(el, {
+          features,
+          startVolume: 0.9,
+          alwaysShowControls: true,
+          success: function(media) {
+            const container = media.closest('.mejs__container');
+            const wrapper = el.closest('.demo-thumb-wrapper');
+            const card = el.closest('.demo-card');
+            const playBtn = card.querySelector('.demo-play-button');
 
-            const player = new MediaElementPlayer(el, {
-              features,
-              startVolume: 0.9,
-              alwaysShowControls: true,
-              success: function(media) {
-                const container = media.closest('.mejs__container');
-                const wrapper = el.closest('.demo-thumb-wrapper');
-                const card = el.closest('.demo-card');
-                const playBtn = card.querySelector('.demo-play-button');
+            playBtn.classList.add('paused');
 
-                playBtn.classList.add('paused');
+            if(type === 'audio') {
+              const img = document.createElement('img');
+              img.src = el.getAttribute('poster');
+              img.classList.add('demo-thumb', 'audio-thumb');
+              container.insertBefore(img, container.firstChild);
+            }
 
-                if(type === 'audio') {
-                  const img = document.createElement('img');
-                  img.src = el.getAttribute('poster');
-                  img.classList.add('demo-thumb', 'audio-thumb');
-                  container.insertBefore(img, container.firstChild);
-                }
+            playBtn.addEventListener('click', e => {
+              e.stopPropagation();
+              if(media.paused) media.play();
+              else media.pause();
+            });
 
-                playBtn.addEventListener('click', e => {
-                  e.stopPropagation();
-                  if(media.paused) media.play();
-                  else media.pause();
-                });
+            media.addEventListener('play', () => {
+              playBtn.classList.remove('paused');
+              playBtn.classList.add('playing');
 
-                media.addEventListener('play', () => {
-                  playBtn.classList.remove('paused');
-                  playBtn.classList.add('playing');
+              Object.values(players).forEach(p => {
+                if(p !== player) p.pause();
+              });
 
-                  Object.values(players).forEach(p => {
-                    if(p !== player) p.pause();
-                  });
-
-                  if(type === 'video') {
-                    const thumb = wrapper.querySelector('.demo-thumb');
-                    if(thumb) thumb.style.display = 'none';
-                  }
-                });
-
-                media.addEventListener('pause', () => {
-                  playBtn.classList.remove('playing');
-                  playBtn.classList.add('paused');
-
-                  if(type === 'video') {
-                    const thumb = wrapper.querySelector('.demo-thumb');
-                    if(thumb) thumb.style.display = 'block';
-                  }
-                });
+              if(type === 'video') {
+                const thumb = wrapper.querySelector('.demo-thumb');
+                if(thumb) thumb.style.display = 'none';
               }
             });
 
-            players[id] = player;
-          })
-          .catch(err => console.error(`Error cargando ${type} ${id}:`, err));
-      });
+            media.addEventListener('pause', () => {
+              playBtn.classList.remove('playing');
+              playBtn.classList.add('paused');
 
-      tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-          tabs.forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
-
-          const category = tab.dataset.tab;
-          let visibleCount = 0;
-
-          cards.forEach(card => {
-            if(category === "all" || card.dataset.category === category) {
-              card.style.display = "block";
-              visibleCount++;
-            } else {
-              card.style.display = "none";
-            }
-          });
-
-          grid.style.justifyContent = visibleCount < 4 ? "center" : "start";
+              if(type === 'video') {
+                const thumb = wrapper.querySelector('.demo-thumb');
+                if(thumb) thumb.style.display = 'block';
+              }
+            });
+          }
         });
-      });
-    }
 
+        players[id] = player;
+      })
+      .catch(err => console.error(`Error cargando ${type} ${id}:`, err));
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      const category = tab.dataset.tab;
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        if(category === "all" || card.dataset.category === category) {
+          card.style.display = "block";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      grid.style.justifyContent = visibleCount < 4 ? "center" : "start";
+    });
+  });
+}
