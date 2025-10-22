@@ -141,11 +141,11 @@
 }
 
 .demo-play-button.paused {
-  background-image: url('/assets/images/icons/play.png');
+  background-image: url('/victormoreira/assets/images/icons/play.png');
 }
 
 .demo-play-button.playing {
-  background-image: url('/assets/images/icons/pause.png');
+  background-image: url('/victormoreira/assets/images/icons/pause.png');
 }
 
 .demo-play-button:hover {
