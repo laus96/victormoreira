@@ -1,8 +1,18 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const { nanoid } = require('nanoid');
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+
+app.use(session({
+  secret: 'una-clave-secreta', // cambia esto por algo seguro
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
+}));
 
 const audios = {
   audio1: 'audiolibros1.mp3',
@@ -17,47 +27,47 @@ const videos = {
   dob1: 'doblaje1.mp4',
   dob2: 'doblaje2.mp4',
   dob3: 'doblaje3.mp4',
-  locu1:'locuion1.mp4',
+  locu1: 'locuion1.mp4',
   publi1: 'publicidad1.mp4',
   juegos1: 'videojuegos1.mp4',
-
-
 };
 
-const tokens = {};
-
+// ---- Assets estáticos (opcional) ----
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/doblaje', (req, res) => res.sendFile(path.join(__dirname, 'doblaje', 'index.html')));
+// ---- API para audios ----
 app.get('/api/get-audio', (req, res) => {
   const id = req.query.id;
   const file = audios[id];
   if (!file) return res.status(404).json({ error: 'Audio no encontrado' });
 
   const token = nanoid(12);
-  tokens[token] = { file, type: 'audio' };
 
-  setTimeout(() => { delete tokens[token]; }, 5 * 60 * 1000);
+  // Crear objeto tokens en sesión si no existe
+  if (!req.session.tokens) req.session.tokens = {};
+  req.session.tokens[token] = { file, type: 'audio' };
+
   res.json({ url: `/media/${token}${path.extname(file)}` });
 });
 
+// ---- API para videos ----
 app.get('/api/get-video', (req, res) => {
   const id = req.query.id;
   const file = videos[id];
   if (!file) return res.status(404).json({ error: 'Video no encontrado' });
 
   const token = nanoid(12);
-  tokens[token] = { file, type: 'video' };
 
-  setTimeout(() => { delete tokens[token]; }, 5 * 60 * 1000);
+  if (!req.session.tokens) req.session.tokens = {};
+  req.session.tokens[token] = { file, type: 'video' };
+
   res.json({ url: `/media/${token}${path.extname(file)}` });
 });
 
+// ---- Servir archivos protegidos ----
 app.get('/media/:tokenWithExt', (req, res) => {
-  const tokenWithExt = req.params.tokenWithExt;
-  const token = path.parse(tokenWithExt).name;
-  const tokenData = tokens[token];
+  const token = path.parse(req.params.tokenWithExt).name;
+  const tokenData = req.session.tokens ? req.session.tokens[token] : null;
 
   if (!tokenData) return res.status(403).send('Token inválido o expirado');
 
@@ -67,8 +77,10 @@ app.get('/media/:tokenWithExt', (req, res) => {
   const ext = path.extname(tokenData.file).toLowerCase();
   if (ext === '.mp4') res.type('video/mp4');
   else if (ext === '.m4a') res.type('audio/m4a');
+  else if (ext === '.mp3') res.type('audio/mpeg');
 
   res.sendFile(filePath);
 });
 
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+// ---- Servidor ----
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
