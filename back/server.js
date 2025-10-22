@@ -9,10 +9,10 @@ const PORT = process.env.PORT || 3000;
 
 // ---- CORS ----
 app.use(cors({
-  origin: 'https://laus96.github.io', // tu frontend
+  origin: ['https://laus96.github.io' ],
+  methods: ['GET'],
   credentials: true
 }));
-
 // ---- Sesiones ----
 app.use(session({
   secret: 'una-clave-secreta', // cambia esto por algo seguro
