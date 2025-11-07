@@ -34,7 +34,7 @@
 .header-logo__image {
   width: var(--navbar-logo-height);
   height: var(--navbar-logo-height);
-  background-image: url('/assets/images/icons/icon.png');
+  background-image: url('/victormoreira/assets/images/icons/icon.png');
   /*background-image: url('/victor-doblaje/assets/images/icon.png');*/
   background-size: contain;
   background-repeat: no-repeat;
