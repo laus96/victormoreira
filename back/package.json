@@ -1,0 +1,15 @@
+{
+  "name": "api.victormoreira",
+  "version": "1.0.0",
+  "description": "Servidor Express para los audios y videos de Victor Moreira",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "nanoid": "^5.1.6"
+  }
+}

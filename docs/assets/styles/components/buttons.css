@@ -1,0 +1,250 @@
+.button {
+  font-family: var(--font-button);
+  font-weight: var(--weight-medium);
+  border-radius: var(--border-radius);
+  letter-spacing: var(--text-spacing);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--btn-size);
+  position: relative;
+  z-index: 2;
+  transition: all var(--transition-speed) var(--transition-ease);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  gap: var(--buttons-gap);
+}
+
+.button--link {
+  color: var(--primary-color);
+  font-weight: var(--weight-regular);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  transition: transform var(--transition-speed) var(--transition-ease);
+}
+
+.button--link:hover {
+  transform: translateY(var(--link-hover-translate));
+}
+
+.button--link svg {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  transition: transform var(--transition-speed) var(--transition-ease);
+}
+
+.button--link:hover svg {
+  transform: translateX(0.25rem);
+}
+
+.button.button--hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--border-lines-height);
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform var(--transition-speed) ease-out;
+}
+
+.button.button--hover-underline:hover::after {
+  transform: scaleX(1);
+}
+
+.button.button--hover-underline--center::after {
+  transform-origin: bottom center;
+}
+
+.button.button--hover-underline--right::after {
+  transform-origin: bottom right;
+}
+
+.button--nav {
+  text-decoration: none;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  transition: transform var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease);
+}
+
+.button--nav:hover {
+  transform: translateY(var(--link-hover-translate));
+  color: var(--primary-color);
+  filter: blur(0.5px) brightness(1.2);
+}
+
+.button--cta {
+  border: var(--border-lines-height) solid var(--primary-color);
+  text-decoration: none;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  position: relative;
+  z-index: 1;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+              color var(--transition-speed) var(--transition-ease);
+}
+
+.button--cta::before,
+.button--cta::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: var(--primary-color);
+  transition: var(--transition-speed) var(--transition-ease);
+}
+
+.button--cta.middle-up-down-in::before {
+  top: 0;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+}
+
+.button--cta.middle-up-down-in::after {
+  top: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.button--cta.middle-up-down-in:hover::before {
+  bottom: 50%;
+}
+
+.button--cta.middle-up-down-in:hover::after {
+  top: 50%;
+}
+
+.button--primary {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: var(--border-lines-height) solid var(--primary-color);
+}
+
+.button--primary:hover {
+  transform: translateY(var(--link-hover-translate));
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+  box-shadow: var(--shadow);
+}
+
+.button--primary:active {
+  transform: translateY(0);
+  background-color: var(--primary-color-active);
+  border-color: var(--primary-color-active);
+  box-shadow: none;
+}
+
+.button--outline {
+  background-color: transparent;
+  color: var(--text-color-light);
+  border: var(--border-lines-height) solid var(--primary-color);
+}
+
+.button--outline:hover {
+  transform: translateY(var(--link-hover-translate));
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+}
+
+.button--outline:active {
+  transform: translateY(0);
+  background-color: var(--primary-color-active);
+  border-color: var(--primary-color-active);
+}
+
+.button--float {
+  width: var(--button-float-icon);
+  height: var(--button-float-icon);
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-ease);
+  animation: glow 2s infinite alternate;
+}
+
+.button--float:hover {
+  background-color: var(--primary-color-hover);
+  transform: translateY(var(--link-hover-translate));
+  box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.4);
+}
+
+.button--float svg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+
+.button--float__container:hover .tooltip__box {
+  opacity: 1;
+  visibility: visible;
+}
+
+.button--float__container {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: var(--z-modal);
+  display: none;
+}
+
+.icon-mail {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  color: var(--text-color-light);
+}
+
+.button--link.button--hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--border-lines-height);
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform var(--transition-speed) ease-out;
+}
+
+.button--link.button--hover-underline:hover::after {
+  transform: scaleX(1);
+}
+
+.button--sm {
+  font-size: var(--btn-font-size-sm);
+  padding: var(--btn-padding-y-sm) var(--btn-padding-x-sm);
+}
+
+.button--lg {
+  font-size: var(--btn-font-size-lg);
+  padding: var(--btn-padding-y-lg) var(--btn-padding-x-lg);
+  border-radius: var(--btn-radius-lg);
+}
+
+.button--xl {
+  font-size: var(--btn-font-size-xl);
+  padding: var(--btn-padding-y-xl) var(--btn-padding-x-xl);
+  border-radius: var(--btn-radius-xl);
+}
+
+.button--nav.active,
+.button--nav.active.button--hover-underline {
+  color: var(--primary-color);
+  font-weight: var(--weight-medium);
+  transform: translateY(0);}
+
+.button--nav.active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 0.5px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(1);transition: none;
+}

@@ -1,0 +1,53 @@
+.legal {
+  position: relative;
+  margin-top: var(--navbar-height);
+  min-height: 100vh;
+  padding: var(--gap-lg) var(--padding-x);
+  /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
+  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  font-family: var(--font-base);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.legal__container {
+  width: 100%;
+  max-width: var(--container-max-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--padding-lg) 0;
+  box-sizing: border-box;
+}
+
+.legal__title {
+  text-align: justify;
+  margin-bottom: var(--padding-xs);
+}
+
+.legal__subtitle {
+  text-align: justify;
+  color: var(--text-color-muted);
+  font-weight: var(--weight-regular);
+  padding: 0 var(--padding-xs);
+  margin-top: var(--padding-md);
+  margin-bottom: var(--padding-xs);
+}
+
+.legal p {
+  font-size: var(--text-base-size);
+  line-height: var(--line-height);
+  color: var(--legal-subtext-color);
+  margin-top: 0;
+  margin-bottom: var(--gap-md);
+  text-align: justify;
+  padding: 0 var(--padding-md);
+}
+
+.legal ul {
+  margin: var(--padding-xxs) 0 var(--padding-xxs) var(--padding-md);
+  list-style: disc;
+  color: var(--legal-subtext-color);
+}
