@@ -3,7 +3,7 @@
   margin-top: var(--navbar-height);
   min-height: var(--hero-height-desktop);
   height: var(--hero-height-desktop);
-  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  background: url('/victormoreira/assets/images/backgrounds/hero_bg.webp') repeat;
   /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
   background-size: 135% auto;
   background-position: top left;
@@ -29,7 +29,7 @@
   margin-top: var(--navbar-height);
   min-height: var(--hero-sub-height-desktop);
   height: var(--hero-sub-height-desktop);
-  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  background: url('/victormoreira/assets/images/backgrounds/hero_bg.webp') repeat;
   /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
   background-size: 135% auto;
   background-position: top left;
