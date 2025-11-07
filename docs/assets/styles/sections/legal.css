@@ -4,7 +4,7 @@
   min-height: 100vh;
   padding: var(--gap-lg) var(--padding-x);
   /*background: url('/victor-doblaje/assets/images/hero_bg.webp') repeat;*/
-  background: url('/assets/images/backgrounds/hero_bg.webp') repeat;
+  background: url('/victormoreira/assets/images/backgrounds/hero_bg.webp') repeat;
   font-family: var(--font-base);
   display: flex;
   justify-content: center;
