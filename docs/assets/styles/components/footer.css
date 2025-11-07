@@ -38,7 +38,7 @@
   width: var(--footer-logo-height);
   height: var(--footer-logo-height);
   /*background: url('/victor-doblaje/assets/images/icon.png') center/contain no-repeat;*/
-  background: url('/assets/images/icons/icon.png') center/contain no-repeat;
+  background: url('/victormoreira/assets/images/icons/icon.png') center/contain no-repeat;
   filter: brightness(1.1);
   flex-shrink: 0;
 }
