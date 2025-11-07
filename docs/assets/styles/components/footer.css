@@ -8,7 +8,7 @@
   border-radius: var(--border-radius);
   transition: var(--transition);
 }
-
+ 
 .footer::before {
   content: "";
   position: absolute;
